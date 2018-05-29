@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LabAssignment10Joaquinfernandezc</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <script>
+      window.fbAsyncInit = function() {
+          FB.init({
+              appId      : 806394349566781,
+              cookie     : true,
+              xfbml      : true,
+              version    : '{latest-api-version}'
+          });
+
+          FB.AppEvents.logPageView();
+
+      };
+
+      (function(d, s, id){
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <body>
+  <div align="right">
+  <% if current_user.present? %>
+    <%= current_user.name %>
+    <%= link_to "logout", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "login", new_user_session_path, method: :get %>
+  <% end %>
+  </div>
+  <%= yield %>
+  </body>
+</html>
